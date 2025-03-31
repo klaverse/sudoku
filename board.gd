@@ -17,20 +17,38 @@ var rows: Array[Array] = []
 var cols: Array[Array] = []
 var grid: Array = []
 
-var res_grid: Array[Array] = []
+var res_grid: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	init_board()
 	generate_grid()
 	apply_puzzle(Difficulty.EASY)
+	for row in grid:
+		print(row)
+	print()
+	print("RES_GRID")
+	print()
+	for row in res_grid:
+		print(row)
 
 func _process(delta: float) -> void:
 	pass
 
 func apply_puzzle(difficulty: Difficulty):
-	
-	pass
+	var total_hides: int = difficulty
+	print(total_hides)
+	res_grid = grid.duplicate()
+	var rnd: RandomNumberGenerator = RandomNumberGenerator.new()
+	while total_hides > 0:
+		var rnd_col: int = rnd.randi_range(0, GRID_SIZE - 1)
+		var rnd_row: int = rnd.randi_range(0, GRID_SIZE - 1)
+		# TODO refactor
+		while res_grid[rnd_row][rnd_col] == 0:
+			rnd_col = rnd.randi_range(0, GRID_SIZE - 1)
+			rnd_row = rnd.randi_range(0, GRID_SIZE - 1)
+		res_grid[rnd_row][rnd_row] = 0
+		total_hides -= 1
 
 func init_board() -> void:
 	for row in range(GRID_SIZE):
