@@ -10,7 +10,10 @@ text = "
 clip_text = true
 script = ExtResource("1_24mlx")
 
+[connection signal="deactivate_same_attribute" from="." to="." method="_on_deactivate_same_attribute"]
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="same_attribute" from="." to="." method="_on_same_attribute"]
 [connection signal="toggled" from="." to="." method="_on_toggled"]
