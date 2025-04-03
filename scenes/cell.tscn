@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bp1rptia0ib3q"]
+
+[node name="Cell" type="TextEdit"]
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 74.0
+offset_bottom = 79.0
+theme_override_font_sizes/font_size = 64
+text = "2"

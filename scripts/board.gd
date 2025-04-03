@@ -1,12 +1,16 @@
 extends Node2D
 class_name Board
 
+@export var cell: PackedScene
+@onready var grid_container: GridContainer = $GridContainer
+
 enum Difficulty {
-	EASY = 20,
-	MEDIUM = 30,
-	HARD = 40,
-	EXPERT = 50,
-	INSANE = 60
+	EASY = 40,
+	MEDIUM = 45,
+	HARD = 50,
+	EXPERT = 55,
+	MASTER = 60,
+	INSANE = 65
 }
 
 var GRID_SIZE: int = 9
@@ -19,26 +23,31 @@ var grid: Array = []
 
 var res_grid: Array = []
 
+var window_size = DisplayServer.window_get_size()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	init_board()
 	generate_grid()
 	apply_puzzle(Difficulty.EASY)
-	for row in grid:
-		print(row)
-	print()
-	print("RES_GRID")
-	print()
-	for row in res_grid:
-		print(row)
+	render()
 
 func _process(delta: float) -> void:
 	pass
 
+func render() -> void:
+	for row in range(GRID_SIZE):
+		for col in range(GRID_SIZE):
+			var new_button: Button = cell.instantiate()
+			new_button.position = Vector2(col * 40, row * 40)
+			if res_grid[row][col] != 0:
+				new_button.text = str(res_grid[row][col])
+			add_child(new_button)
+
 func apply_puzzle(difficulty: Difficulty):
 	var total_hides: int = difficulty
 	print(total_hides)
-	res_grid = grid.duplicate()
+	res_grid = grid.duplicate(true)
 	var rnd: RandomNumberGenerator = RandomNumberGenerator.new()
 	while total_hides > 0:
 		var rnd_col: int = rnd.randi_range(0, GRID_SIZE - 1)
@@ -47,7 +56,7 @@ func apply_puzzle(difficulty: Difficulty):
 		while res_grid[rnd_row][rnd_col] == 0:
 			rnd_col = rnd.randi_range(0, GRID_SIZE - 1)
 			rnd_row = rnd.randi_range(0, GRID_SIZE - 1)
-		res_grid[rnd_row][rnd_row] = 0
+		res_grid[rnd_row][rnd_col] = 0
 		total_hides -= 1
 
 func init_board() -> void:

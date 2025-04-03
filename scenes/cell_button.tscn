@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b72si3sd012ro"]
+
+[ext_resource type="Script" path="res://scripts/cell_button.gd" id="1_24mlx"]
+
+[node name="Button" type="Button"]
+offset_right = 32.0
+offset_bottom = 32.0
+text = "
+"
+clip_text = true
+script = ExtResource("1_24mlx")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="toggled" from="." to="." method="_on_toggled"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://wupgnuefoxea"]
+
+[ext_resource type="Script" path="res://scripts/board.gd" id="1_cejd2"]
+[ext_resource type="PackedScene" uid="uid://b72si3sd012ro" path="res://scenes/cell_button.tscn" id="3_q6lmv"]
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_cejd2")
+cell = ExtResource("3_q6lmv")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SelectGrid" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
