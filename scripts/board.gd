@@ -1,6 +1,8 @@
 extends Node2D
 class_name Board
 
+signal cell_selected(cell: Cell)
+
 @export var cell: PackedScene
 @onready var grid_container: GridContainer = $GridContainer
 
@@ -24,24 +26,26 @@ var grid: Array = []
 var res_grid: Array = []
 
 var window_size = DisplayServer.window_get_size()
-
+var selected_cell: Cell = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	init_board()
 	generate_grid()
 	apply_puzzle(Difficulty.EASY)
 	render()
+	connect("cell_selected", connect_cell)
 
-func _process(delta: float) -> void:
-	pass
+func connect_cell(cell: Cell) -> void:
+	selected_cell = cell
 
 func render() -> void:
 	for row in range(GRID_SIZE):
 		for col in range(GRID_SIZE):
-			var new_button: Button = cell.instantiate()
+			var new_button: Cell = cell.instantiate()
 			new_button.position = Vector2(col * 40, row * 40)
-			if res_grid[row][col] != 0:
-				new_button.text = str(res_grid[row][col])
+			if grid[row][col] != 0:
+				new_button.text = str(grid[row][col])
+			new_button.correct_value = res_grid[row][col]
 			add_child(new_button)
 
 func apply_puzzle(difficulty: Difficulty):
@@ -56,7 +60,7 @@ func apply_puzzle(difficulty: Difficulty):
 		while res_grid[rnd_row][rnd_col] == 0:
 			rnd_col = rnd.randi_range(0, GRID_SIZE - 1)
 			rnd_row = rnd.randi_range(0, GRID_SIZE - 1)
-		res_grid[rnd_row][rnd_col] = 0
+		grid[rnd_row][rnd_col] = 0
 		total_hides -= 1
 
 func init_board() -> void:
