@@ -1,8 +1,6 @@
 extends Node2D
 class_name Board
 
-signal cell_selected(cell: Cell)
-
 @export var cell: PackedScene
 @onready var grid_container: GridContainer = $GridContainer
 
@@ -15,7 +13,8 @@ enum Difficulty {
 	INSANE = 65
 }
 
-var GRID_SIZE: int = 9
+const GRID_SIZE: int = 9
+var CELL_SIZE_WITH_SPACING: int = 35
 
 var valid_numbers: Array[int] = []
 
@@ -26,23 +25,22 @@ var grid: Array = []
 var res_grid: Array = []
 
 var window_size = DisplayServer.window_get_size()
-var selected_cell: Cell = null
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	init_board()
 	generate_grid()
 	apply_puzzle(Difficulty.EASY)
 	render()
-	connect("cell_selected", connect_cell)
-
-func connect_cell(cell: Cell) -> void:
-	selected_cell = cell
 
 func render() -> void:
+	var init_pos: Vector2
+	init_pos.x = (window_size.x - GRID_SIZE * CELL_SIZE_WITH_SPACING) / 2
+	init_pos.y = (window_size.y - GRID_SIZE * CELL_SIZE_WITH_SPACING) / 2
+	
 	for row in range(GRID_SIZE):
 		for col in range(GRID_SIZE):
 			var new_button: Cell = cell.instantiate()
-			new_button.position = Vector2(col * 40, row * 40)
+			new_button.position = init_pos + Vector2(col * CELL_SIZE_WITH_SPACING, row * CELL_SIZE_WITH_SPACING)
 			if grid[row][col] != 0:
 				new_button.text = str(grid[row][col])
 			new_button.correct_value = res_grid[row][col]
@@ -50,7 +48,6 @@ func render() -> void:
 
 func apply_puzzle(difficulty: Difficulty):
 	var total_hides: int = difficulty
-	print(total_hides)
 	res_grid = grid.duplicate(true)
 	var rnd: RandomNumberGenerator = RandomNumberGenerator.new()
 	while total_hides > 0:
@@ -66,10 +63,9 @@ func apply_puzzle(difficulty: Difficulty):
 func init_board() -> void:
 	for row in range(GRID_SIZE):
 		grid.append([])
+		valid_numbers.append(row + 1)
 		for col in range(GRID_SIZE):
 			grid[row].append(0)
-	for i in range(GRID_SIZE):
-		valid_numbers.append(i + 1)
 
 func generate_grid() -> void:
 	if grid_back_tracking():

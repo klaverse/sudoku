@@ -1,3 +1,36 @@
-[gd_scene format=3 uid="uid://bakjgfj04i1rh"]
+[gd_scene load_steps=2 format=3 uid="uid://bakjgfj04i1rh"]
+
+[ext_resource type="PackedScene" uid="uid://wupgnuefoxea" path="res://scenes/board.tscn" id="1_o5qli"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="Board" parent="Game" instance=ExtResource("1_o5qli")]
+
+[node name="UI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainMenu" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Play" type="Button" parent="UI/MainMenu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Setting" type="Button" parent="UI/MainMenu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Exit" type="Button" parent="UI/MainMenu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
