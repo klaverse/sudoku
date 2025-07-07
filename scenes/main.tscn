@@ -4,9 +4,15 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Game" type="Node2D" parent="."]
-
-[node name="Board" parent="Game" instance=ExtResource("1_o5qli")]
+[node name="Board" parent="." instance=ExtResource("1_o5qli")]
+clip_contents = true
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 
 [node name="UI" type="Control" parent="."]
 visible = false

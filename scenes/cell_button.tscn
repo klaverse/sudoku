@@ -1,12 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://b72si3sd012ro"]
 
-[ext_resource type="Script" uid="uid://be0twjqliskie" path="res://scripts/cell_button.gd" id="1_24mlx"]
+[ext_resource type="Script" uid="uid://be0twjqliskie" path="res://scripts/tile.gd" id="1_24mlx"]
 
 [node name="Button" type="Button"]
-offset_right = 32.0
-offset_bottom = 32.0
+offset_right = 64.0
+offset_bottom = 64.0
 text = "
-"
+0"
 clip_text = true
 script = ExtResource("1_24mlx")
 
