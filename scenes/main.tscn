@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bakjgfj04i1rh"]
+[gd_scene load_steps=3 format=3 uid="uid://bakjgfj04i1rh"]
 
 [ext_resource type="PackedScene" uid="uid://wupgnuefoxea" path="res://scenes/board.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://cunnfw715lw0w" path="res://scenes/main_menu.gd" id="2_0wfyh"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Board" parent="." instance=ExtResource("1_o5qli")]
-clip_contents = true
 anchors_preset = 15
 anchor_left = 0.0
 anchor_top = 0.0
@@ -15,21 +15,32 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 
 [node name="UI" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="MainMenu" type="Control" parent="UI"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchor_right = 10.871
+anchor_bottom = 18.338
+offset_right = -434.84
+offset_bottom = -733.52
+script = ExtResource("2_0wfyh")
 
 [node name="Play" type="Button" parent="UI/MainMenu"]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 117.0
+offset_top = 735.0
+offset_right = 349.0
+offset_bottom = 817.0
+text = "Play"
+
+[node name="OptionButton" type="OptionButton" parent="UI/MainMenu/Play"]
+visible = false
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 20.0
 
 [node name="Setting" type="Button" parent="UI/MainMenu"]
 layout_mode = 0
@@ -40,3 +51,5 @@ offset_bottom = 8.0
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
+
+[connection signal="pressed" from="UI/MainMenu/Play" to="UI/MainMenu" method="_on_play_pressed"]

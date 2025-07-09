@@ -25,31 +25,29 @@ func _on_press():
 func _process(delta: float) -> void:
 	if self.current_value == 0:
 		self.text = ""
-	if self.text != str(self.correct_value):
+	if self.current_value != self.correct_value:
 		render_false_value()
 	else:
 		render_true_value()
 
 func render_true_value():
 	add_theme_color_override("font_color", Color.WHITE)
-	add_theme_color_override("font_select_color", Color.WHITE)
+	add_theme_color_override("font_focus_color", Color.WHITE)
 	add_theme_color_override("font_hover_color", Color.WHITE)
-	add_theme_color_override("font_color_focus", Color.WHITE)
 	queue_redraw()
 
 func render_false_value():
 	add_theme_color_override("font_color", Color.RED)
-	add_theme_color_override("font_select_color", Color.RED)
+	add_theme_color_override("font_focus_color", Color.RED)
 	add_theme_color_override("font_hover_color", Color.RED)
-	add_theme_color_override("font_color_focus", Color.RED)
 	queue_redraw()
 
 func _input(event: InputEvent) -> void:
-	if select:
+	if select and not fixed:
 		for i in range(9):
 			if Input.is_key_pressed(KEY_1 + i):
-				current_value = i+1
-				text = str(i+1)
+				self.current_value = i+1
+				self.text = str(i+1)
 				emit_signal("change_value")
 
 func hover_same_attributes() -> void:

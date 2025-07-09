@@ -27,11 +27,8 @@ var current_row: int = -1
 var window_size = DisplayServer.window_get_size()
 
 func _ready() -> void:
-	self.columns = 9
-	init_board()
-	generate_grid()
-	apply_puzzle(Difficulty.EASY)
-	#cell.connect("change_value", check_winner)
+	pass
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -51,6 +48,13 @@ func _input(event: InputEvent) -> void:
 					current_col -= 1
 			emit_signal("select_cell", current_col, current_row)
 
+func start_game() -> void:
+	self.columns = 9
+	init_board()
+	generate_grid()
+	apply_puzzle(Difficulty.EASY)
+	#cell.connect("change_value", check_winner)
+
 func apply_puzzle(difficulty: Difficulty):
 	var total_hides: int = difficulty
 	res_grid = grid.duplicate(true)
@@ -66,6 +70,7 @@ func apply_puzzle(difficulty: Difficulty):
 			rnd_row = rnd.randi_range(0, GRID_SIZE - 1)
 			hidden_tile = get_grid_tile(rnd_row, rnd_col)
 		hidden_tile.current_value = 0
+		hidden_tile.fixed = false
 		total_hides -= 1
 
 func init_board() -> void:
