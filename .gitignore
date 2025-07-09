@@ -15,4 +15,5 @@ data_*/
 mono_crash.*.json
 
 /builds
+builds/
 builds/ios/sudoku.xcframework/
